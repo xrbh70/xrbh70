@@ -1,6 +1,10 @@
+Create EC2 Instance
+
 aws ec2 run-instances --image-id ami-09e67e426f25ce0d7 --count 1 --instance-type t2.micro --key-name xavier --security-group-ids sg-ca905e86 --subnet-id subnet-9f9b1ff8
 _______________
  
+Upgrade process and install packages
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt dist-upgrade -y
@@ -8,6 +12,7 @@ sudo apt-get install mysql-client apache2 php php-mysql -y
 sudo systemctl restart apache2.service
 
 _______________
+Create RDS 
 aws rds create-db-instance \
     --db-instance-identifier test-mysql-instance \
     --db-instance-class db.t3.micro \
@@ -17,6 +22,8 @@ aws rds create-db-instance \
     --allocated-storage 8
 
 _______________
+Create the application
+
 sudo vi /var/www/html/form.html
 
 <head>
@@ -51,6 +58,7 @@ Test Page
 </body>
 
 _______________
+Create the database
 
 mysql -h test-mysql-instance.clydyuazbnns.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
@@ -66,6 +74,8 @@ create table pet(
 ); 
 
 _______________
+Continuing creating the application
+
 sudo vi /var/www/html/form_submit.php
 
 <?php
@@ -116,9 +126,12 @@ echo '<h3 style="text-align:center;">A very detailed error message ( ͡° ͜ʖ �
 ?>
 
 _______________
+Insert values
+
 http://host/form.html 
 
 _______________
+Continuing creating the application
 
 sudo vi /var/www/html/form_query.php
 
@@ -164,6 +177,8 @@ echo "</table>";
 ?>
 
 _______________
-
+Insert values
 http://18.234.139.143/form.html 
+
+Show values inserted
 http://18.234.139.143/form_query.php
